@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import messages from './messages';
 
@@ -11,8 +11,13 @@ import SubmitButton from '../../components/SubmitButton';
 import ErrorMessage from '../../components/ErrorMessage'
 import LoadingButton from '../../components/LoadingButton'
 
-const RegisterForm = ({ data, error, currentlySending, onChangeUsername, onChangePassword, onSubmit }) => (
-  <Form onSubmit={ e => {
+const RegisterForm = ({ data, error, currentlySending, onChangeUsername, onChangePassword, onSubmit, intl }) => {
+  
+  const usernamePlaceholder = intl.formatMessage(messages.usernameText);
+  const passwordPlaceholder = intl.formatMessage(messages.passwordText);
+
+  return (
+    <Form onSubmit={ e => {
         e.preventDefault();
         onSubmit(data.username, data.password);
       }
@@ -22,7 +27,7 @@ const RegisterForm = ({ data, error, currentlySending, onChangeUsername, onChang
         type='text'
         id='username'
         value={data.username}
-        placeholder={<FormattedMessage {...messages.usernameText} />}
+        placeholder={usernamePlaceholder}
         onChange={ e => onChangeUsername({...data, username: e.target.value}) }
         autoCorrect='off'
         autoCapitalize='off'
@@ -31,7 +36,7 @@ const RegisterForm = ({ data, error, currentlySending, onChangeUsername, onChang
         id='password'
         type='password'
         value={data.password}
-        placeholder={<FormattedMessage {...messages.passwordText} />}
+        placeholder={passwordPlaceholder}
         onChange={ e => onChangePassword({...data, password: e.target.value}) } />
       {currentlySending ? (
         <LoadingButton />
@@ -41,7 +46,8 @@ const RegisterForm = ({ data, error, currentlySending, onChangeUsername, onChang
         </SubmitButton>
           )}
     </Form>
-)
+  );
+};
 
 RegisterForm.propTypes = {
   data: PropTypes.object.isRequired,
@@ -50,6 +56,7 @@ RegisterForm.propTypes = {
   onChangeUsername: PropTypes.func.isRequired,
   onChangePassword: PropTypes.func.isRequired, 
   onSubmit: PropTypes.func.isRequired, 
+  intl: intlShape.isRequired,
 }
 
-export default RegisterForm;
+export default injectIntl(RegisterForm);

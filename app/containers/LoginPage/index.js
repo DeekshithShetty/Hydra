@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import FormWrapper from './FormWrapper';
 import Header from './Header';
 import H2 from '../../components/H2';
+import Logo from './logo.png';
 
 import LoginForm from './LoginForm';
 import messages from './messages';
@@ -28,6 +29,14 @@ const LoginPageWrapper = styled.div`
     background: #41C2C2;
 `;
 
+const CircularLogoImage = styled.img`
+    height: 120px;
+    width: 120px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+`;
+
 export class LoginPage extends React.PureComponent {
 
   render () {
@@ -37,6 +46,7 @@ export class LoginPage extends React.PureComponent {
       <LoginPageWrapper>
         <FormWrapper>
           <Header>
+            <CircularLogoImage src={ Logo } />
             <H2>
               <FormattedMessage {...messages.loginHeader} />
             </H2>

@@ -4,7 +4,9 @@ const Footer = styled.footer`
 
     float:right;
     width: 85%;
-    background: lightgreen;
+    color: #555;
+    text-align: center;
+    background: #111;
     padding: 0.5em;
 `;
 

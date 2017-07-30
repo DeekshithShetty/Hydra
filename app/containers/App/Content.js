@@ -4,8 +4,8 @@ const Content = styled.article`
 
     float:right;
     width: 85%;
-    background: lightgrey;
-    padding: 0.5em; 
+    background: #eee;
+    padding: 1em; 
 
     @media all and (max-width: 800px) {
         min-height: auto;
@@ -15,12 +15,19 @@ const Content = styled.article`
     }
 
     & > * {
-        min-height: 82.6vh;
+        min-height: 80.3vh;
         height: 100%;
         padding: 0.5em;
         margin: 0;
         background: #FFFFFF;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+        -webkit-transition: all 0.3s linear 0s;
+        -moz-transition: all 0.3s linear 0s;
+        -ms-transition: all 0.3s linear 0s;
+        -o-transition: all 0.3s linear 0s;
+        transition: all 0.3s linear 0s;
     }
 `;
 

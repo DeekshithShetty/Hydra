@@ -4,7 +4,7 @@ const FormWrapper = styled.div`
   margin: auto;
   z-index: 1;
   max-width: 360px;
-  padding: 45px;
+  padding: 30px;
   text-align: center;
   background: #FFF;
   border-radius: 5px;
