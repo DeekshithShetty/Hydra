@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 const NavigationLink = styled(Link)`
     text-decoration: none;
-    color: white;
+    color: #444;
     font-size:1.0em;
     margin-left:0.5em;
     margin-right:0.5em;
@@ -11,8 +11,6 @@ const NavigationLink = styled(Link)`
     @media all and (max-width: 600px) {
         text-align: center; 
         padding: 10px;
-        border-top: 1px solid rgba(255,255,255,0.3); 
-        border-bottom: 1px solid rgba(0,0,0,0.1);
     }
     
     &:hover, &:focus {

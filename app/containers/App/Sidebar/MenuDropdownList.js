@@ -4,7 +4,7 @@ const MenuDropdownList = styled.ul`
     list-style: none;
     margin: 0; 
     padding: 0;
-    background: darkgrey;
+    background: #051022;
     
     display:none;
 

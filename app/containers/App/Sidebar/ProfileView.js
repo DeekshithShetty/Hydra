@@ -7,7 +7,6 @@ import StyledLink from './StyledLink';
 
 const ProfileViewWrapper = styled.div`
     padding: 0.5em;
-    border-bottom: 1px solid #AAA;
 `;
 
 const CircularProfileImage = styled.img`
@@ -19,9 +18,9 @@ const CircularProfileImage = styled.img`
 `;
 
 const UserName = styled.div`
-    padding: 0.5em;
+    padding: 0.8em;
     text-align:center;
-    color: #DDD;
+    color: #BBB;
 `;
 
 class ProfileView extends Component {
@@ -29,7 +28,7 @@ class ProfileView extends Component {
     return (
       <ProfileViewWrapper>
         <CircularProfileImage src={ ProfilePic } />
-        <UserName>Deekshith</UserName>
+        <UserName>Red Skull</UserName>
       </ProfileViewWrapper>
     )
   }

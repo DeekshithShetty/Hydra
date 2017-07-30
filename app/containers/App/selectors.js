@@ -20,7 +20,12 @@ const makeSelectLocationState = () => {
 
 const makeSelectCss = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('css').toJS()
+  (globalState) => { 
+    console.dir("css state from selector");
+    console.dir(globalState.get('css'));
+    return { 'css' : true };
+    //return globalState.get('css').toJS();
+  }
 );
 
 export {

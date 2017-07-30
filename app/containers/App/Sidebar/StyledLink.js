@@ -11,11 +11,6 @@ const StyledLink = styled(Link)`
     padding-left: 1.5em;
     padding-right: 1.5em;
 
-    @media all and (max-width: 600px) {
-        border-top: 1px solid rgba(255,255,255,0.3); 
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-    
     &:hover, &:focus {
         color: #DDD;
     }

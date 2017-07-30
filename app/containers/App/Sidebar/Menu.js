@@ -28,18 +28,15 @@ class Menu extends Component {
     return (
       <MenuWrapper>
         <MenuHeader>
-            <StyledLink to='/module4'>Module 4</StyledLink>
-            <StyledLink to='#'>&#709;</StyledLink>
+            <StyledLink to='/library' activeClassName="activeSidebarLink">Library</StyledLink>
+            <StyledLink to='#'>&#x25BC;</StyledLink>
         </MenuHeader>    
         <MenuDropdownList>
             <MenuDropdownItem>
-              <StyledLink href='/module4/web'>Web</StyledLink>
+              <StyledLink href='/library/web'>Technical</StyledLink>
             </MenuDropdownItem>
             <MenuDropdownItem>
-              <StyledLink href='/module4/print'>Print</StyledLink>
-            </MenuDropdownItem>
-            <MenuDropdownItem>
-              <StyledLink href='/module4/other'>Other</StyledLink>
+              <StyledLink href='/library/print'>Fiction/Non Fiction</StyledLink>
             </MenuDropdownItem>
         </MenuDropdownList>
       </MenuWrapper>

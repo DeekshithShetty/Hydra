@@ -4,6 +4,7 @@ const NavigationList = styled.ul`
     list-style: none;
     margin: 0; 
     padding-left:0;
+    color: #555;
     
     display: -webkit-box;
     display: -moz-box;
