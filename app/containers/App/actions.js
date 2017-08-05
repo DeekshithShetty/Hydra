@@ -5,6 +5,7 @@ import {
   LOGOUT_AUTH_REQUEST,
   AUTH_REQUEST_ERROR,
   CURRENT_IS_AUTH,
+  SAVE_AUTH_TOKEN,
   TOGGLE_SIDEBAR,
   CLEAR_AUTH_REQUEST_ERROR,
 } from './constants'
@@ -13,7 +14,7 @@ import {
  * Sets the `currentlySending` state, which displays a loading indicator during requests
  * @param  {boolean} sending True means we're sending a request, false means we're not
  */
-export function sendingRequest (sending) {
+export function sendingAuthRequest (sending) {
   return {type: SENDING_AUTH_REQUEST, sending}
 }
 
@@ -45,8 +46,12 @@ export function setAuthState (newAuthState) {
   return {type: CURRENT_IS_AUTH, newAuthState}
 }
 
-export function toggleSidebarDisplay (newDisplay) {
-  return {type: TOGGLE_SIDEBAR, newDisplay}
+export function saveAuthIdToken (idToken) {
+  return {type: SAVE_AUTH_TOKEN, idToken}
+}
+
+export function toggleSidebarDisplay () {
+  return {type: TOGGLE_SIDEBAR}
 }
 
 /**
@@ -60,13 +65,13 @@ export function logout () {
  * Sets the `error` state to the error received
  * @param  {object} error The error we got when trying to make the request
  */
-export function requestError (error) {
+export function authRequestError (error) {
   return {type: AUTH_REQUEST_ERROR, error}
 }
 
 /**
  * Sets the `error` state as empty
  */
-export function clearError () {
+export function clearAuthRequestError () {
   return {type: CLEAR_AUTH_REQUEST_ERROR}
 }

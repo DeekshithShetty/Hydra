@@ -8,7 +8,7 @@ import { Route } from 'react-router';
 
 import { getAsyncInjectors } from './utils/asyncInjectors';
 
-import { clearError } from './containers/App/actions'
+import { clearAuthRequestError } from './containers/App/actions'
 
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
@@ -22,12 +22,14 @@ export const createRoutes = (store) => {
   // create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store);
 
-
   function checkAuth(nextState, replaceState) {
 
-        let loggedIn = store.getState().get('global').get('loggedIn');
+        let loggedIn = store.getState()
+            .get('global')
+            .get('auth')
+            .get('loggedIn'); 
 
-        store.dispatch(clearError())
+        store.dispatch(clearAuthRequestError())
         
         if (nextState.location.pathname == '/login') {
             if (loggedIn) {
@@ -92,9 +94,20 @@ export const createRoutes = (store) => {
             {
                 path: '/dashboard',
                 getComponent(nextState, cb) {
-                    import('./containers/DashboardPage')
-                        .then(loadModule(cb))
-                        .catch(errorLoading);
+                    const importModules = Promise.all([
+                        import('./containers/DashboardPage/reducer'),
+                        import('./containers/DashboardPage/sagas'),
+                        import('./containers/DashboardPage')
+                    ]);
+
+                    const renderRoute = loadModule(cb);
+
+                    importModules.then(([reducer, sagas, component]) => {
+                        injectReducer('dashboard', reducer.default);
+                        injectSagas(sagas.default);
+                        renderRoute(component);
+                    });
+                    importModules.catch(errorLoading);
                 }
             }
         ],

@@ -95,7 +95,7 @@ export function mapDispatchToProps(dispatch, ownProps) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  cssState: makeSelectCss,
+  cssState: makeSelectCss(),
 });
 
 // Wrap the component to inject dispatch and state into it
