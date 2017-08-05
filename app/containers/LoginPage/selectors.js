@@ -11,25 +11,7 @@ const makeSelectFormState = () => createSelector(
   (loginState) => loginState.get('formState').toJS()
 );
 
-const makeSelectCurrentlySending = () => createSelector(
-  selectLogin,
-  (loginState) => loginState.get('currentlySending')
-);
-
-const makeSelectError = () => createSelector(
-  selectLogin,
-  (loginState) => loginState.get('error')
-);
-
-const makeSelectLoggedIn = () => createSelector(
-  selectLogin,
-  (loginState) => loginState.get('loggedIn')
-);
-
 export {
   selectLogin,
   makeSelectFormState,
-  makeSelectCurrentlySending,
-  makeSelectError,
-  makeSelectLoggedIn
 };

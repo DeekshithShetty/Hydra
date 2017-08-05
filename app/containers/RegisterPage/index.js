@@ -11,8 +11,10 @@ import H2 from '../../components/H2';
 import RegisterForm from './RegisterForm';
 import messages from './messages';
 
-import { registerRequest, changeForm } from './actions';
-import { makeSelectFormState, makeSelectCurrentlySending, makeSelectError } from './selectors';
+import { registerRequest } from '../App/actions';
+import { changeForm } from './actions';
+import { makeSelectCurrentlySending, makeSelectError } from '../App/selectors';
+import { makeSelectFormState } from './selectors';
 
 const RegisterPageWrapper = styled.div`
     display: -webkit-box;

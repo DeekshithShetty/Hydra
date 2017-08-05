@@ -8,7 +8,7 @@ import { Route } from 'react-router';
 
 import { getAsyncInjectors } from './utils/asyncInjectors';
 
-import { clearError } from './containers/LoginPage/actions'
+import { clearError } from './containers/App/actions'
 
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console

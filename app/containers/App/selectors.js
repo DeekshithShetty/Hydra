@@ -28,8 +28,26 @@ const makeSelectCss = () => createSelector(
   }
 );
 
+const makeSelectCurrentlySending = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('currentlySending')
+);
+
+const makeSelectError = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('error')
+);
+
+const makeSelectLoggedIn = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('loggedIn')
+);
+
 export {
   selectGlobal,
   makeSelectLocationState,
   makeSelectCss,
+  makeSelectCurrentlySending,
+  makeSelectError,
+  makeSelectLoggedIn,
 };

@@ -12,8 +12,10 @@ import Logo from './logo.png';
 import LoginForm from './LoginForm';
 import messages from './messages';
 
-import { loginRequest, changeForm } from './actions';
-import { makeSelectFormState, makeSelectCurrentlySending, makeSelectError } from './selectors';
+import { loginRequest } from '../App/actions';
+import { changeForm } from './actions';
+import { makeSelectCurrentlySending, makeSelectError } from '../App/selectors';
+import { makeSelectFormState } from './selectors';
 
 const LoginPageWrapper = styled.div`
     display: -webkit-box;
