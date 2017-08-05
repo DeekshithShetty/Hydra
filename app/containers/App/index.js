@@ -12,8 +12,7 @@ import Sidebar from './Sidebar';
 import Content from './Content';
 import Footer from './Footer';
 
-import { logout } from '../LoginPage/actions';
-import { toggleSidebarDisplay } from './actions';
+import { toggleSidebarDisplay, logout } from './actions';
 import { makeSelectCss } from './selectors';
 
 const AppWrapper = styled.div`
@@ -50,9 +49,6 @@ const AppWrapper = styled.div`
 class App extends React.PureComponent {
 
   render () {
-    console.log("App props -");
-    console.dir(this.props);
-
     const { css } = this.props;
 
     return (
@@ -99,7 +95,7 @@ export function mapDispatchToProps(dispatch, ownProps) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  cssState: makeSelectCss,
+  cssState: makeSelectCss(),
 });
 
 // Wrap the component to inject dispatch and state into it

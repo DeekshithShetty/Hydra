@@ -12,8 +12,10 @@ import Logo from './logo.png';
 import LoginForm from './LoginForm';
 import messages from './messages';
 
-import { loginRequest, changeForm } from './actions';
-import { makeSelectFormState, makeSelectCurrentlySending, makeSelectError } from './selectors';
+import { loginRequest } from '../App/actions';
+import { changeForm } from './actions';
+import { makeSelectCurrentlySendingAuthRequest, makeSelectAuthRequestError } from '../App/selectors';
+import { makeSelectFormState } from './selectors';
 
 const LoginPageWrapper = styled.div`
     display: -webkit-box;
@@ -78,8 +80,8 @@ export function mapDispatchToProps(dispatch, ownProps) {
 
 const mapStateToProps = createStructuredSelector({
   formState: makeSelectFormState(),
-  currentlySending: makeSelectCurrentlySending(),
-  error: makeSelectError(),
+  currentlySending: makeSelectCurrentlySendingAuthRequest(),
+  error: makeSelectAuthRequestError(),
 });
 
 // Wrap the component to inject dispatch and state into it

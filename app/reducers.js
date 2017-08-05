@@ -11,6 +11,7 @@ import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import loginReducer from './containers/LoginPage/reducer';
 import registerReducer from './containers/RegisterPage/reducer';
+import dashboardReducer from './containers/DashboardPage/reducer';
 
 /*
  * routeReducer
@@ -48,8 +49,9 @@ export default function createReducer(asyncReducers) {
     route: routeReducer,
     global: globalReducer,
     language: languageProviderReducer,
-    login : loginReducer,
-    register : registerReducer,
+    login: loginReducer,
+    register: registerReducer,
+    dashboard: dashboardReducer,
     ...asyncReducers,
   });
 }

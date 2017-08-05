@@ -2,6 +2,15 @@ import { createSelector } from 'reselect';
 
 const selectGlobal = (state) => state.get('global');
 
+const selectAuth = () => createSelector(
+  selectGlobal,
+  (globalState) => { 
+    console.dir("globalState.get('auth').toJS()");
+    console.dir(globalState.get('auth'));
+    return globalState.get('auth').toJS();
+  }
+);
+
 const makeSelectLocationState = () => {
   let prevRoutingState;
   let prevRoutingStateJS;
@@ -20,16 +29,30 @@ const makeSelectLocationState = () => {
 
 const makeSelectCss = () => createSelector(
   selectGlobal,
-  (globalState) => { 
-    console.dir("css state from selector");
-    console.dir(globalState.get('css'));
-    return { 'css' : true };
-    //return globalState.get('css').toJS();
-  }
+  (globalState) => globalState.get('css').toJS()
+);
+
+const makeSelectCurrentlySendingAuthRequest = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('auth').get('currentlySending')
+);
+
+const makeSelectAuthRequestError = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('auth').get('error')
+);
+
+const makeSelectAuthIsLoggedIn = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('auth').get('loggedIn')
 );
 
 export {
   selectGlobal,
   makeSelectLocationState,
   makeSelectCss,
+  selectAuth,
+  makeSelectCurrentlySendingAuthRequest,
+  makeSelectAuthRequestError,
+  makeSelectAuthIsLoggedIn,
 };
