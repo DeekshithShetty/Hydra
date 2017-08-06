@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
+import {Line as LineChart} from 'react-chartjs';
 
 import PageWrapper from './PageWrapper';
 import ReposList from './ReposList';
@@ -36,6 +37,53 @@ class DashboardPage extends React.PureComponent {
       repos,
     };
 
+    const deviceChartData = {
+        labels: [],
+        datasets: [
+            {
+                label: "Stargazers",
+                strokeColor: "#66BB6A",
+                pointColor: "rgba(102,187,106,0.5)",
+                pointStrokeColor: "#fff",
+                pointHoverRadius: 5,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: [],
+                spanGaps: false,
+            },
+              {
+                label: "Forks",
+                strokeColor: "#F44336",
+                pointColor: "rgba(244,67,54,0.5)",
+                pointStrokeColor: "#fff",
+                pointHoverRadius: 5,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: [],
+                spanGaps: false,
+            }
+        ]
+    };
+
+    var reposArrayLength = (repos.length > 5) ? 5 : repos.length;
+    for (var i = 0; i < reposArrayLength; i++) {
+        deviceChartData.labels.push(repos[i].name);
+        deviceChartData.datasets[0].data.push(repos[i].stargazers_count);
+        deviceChartData.datasets[1].data.push(repos[i].forks);
+    }
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        bezierCurve : false,
+        datasetFill : false
+    };
+
+    const devicesLineChartContent = reposListProps.loading ? 
+      <h3>Loading ...</h3>
+      :
+      <LineChart data={deviceChartData} options={chartOptions} redraw={true}/>;
+
     return (
       <PageWrapper>
         <Helmet
@@ -51,16 +99,16 @@ class DashboardPage extends React.PureComponent {
 
           <DashboardCard>
             <DashboardCardHeading>
-              <p>Repo List - Card 1</p>
+              <p>Repo Trends</p>
             </DashboardCardHeading>
             <DashboardCardContent>
-              <ReposList {...reposListProps} />
+              {devicesLineChartContent}
             </DashboardCardContent>
           </DashboardCard>
 
           <DashboardCard>
             <DashboardCardHeading>
-              <p>Repo List - Card 2</p>
+              <p>Repo List</p>
             </DashboardCardHeading>
             <DashboardCardContent>
               <ReposList {...reposListProps} />

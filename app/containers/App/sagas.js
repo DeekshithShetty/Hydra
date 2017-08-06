@@ -11,9 +11,7 @@ import {take, call, put, fork, race} from 'redux-saga/effects';
 import auth from '../../utils/auth';
 
 import { 
-  sendingAuthRequest, 
-  loginRequest,
-  registerRequest,
+  sendingAuthRequest,
   setAuthState,  
   authRequestError,
  } from './actions';
@@ -21,15 +19,10 @@ import {
 import { changeForm } from '../LoginPage/actions';
 
 import {
-  SENDING_AUTH_REQUEST,
   LOGIN_AUTH_REQUEST,
   REGISTER_AUTH_REQUEST,
-  CURRENT_IS_AUTH,
   LOGOUT_AUTH_REQUEST,
-  AUTH_REQUEST_ERROR
 } from './constants';
-
-import { CHANGE_FORM } from '../LoginPage/constants';
 
 /**
  * Effect to handle authorization
