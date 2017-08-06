@@ -13,7 +13,7 @@ import request from 'utils/request';
  * Github repos request/response handler
  */
 export function* getRepos() {
-  const requestURL = `https://api.github.com/users/DeekshithShetty/repos?type=all&sort=updated`;
+  const requestURL = `https://api.github.com/users/gaearon/repos?type=all&sort=updated`;
 
   try {
     // Call our request helper (see 'utils/request')
