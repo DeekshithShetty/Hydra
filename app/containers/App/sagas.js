@@ -10,10 +10,15 @@ import {browserHistory} from 'react-router';
 import {take, call, put, fork, race} from 'redux-saga/effects';
 import auth from '../../utils/auth';
 
+import {startOAuth, getSignedInUser} from 'utils/microsoft-auth';
+
 import { 
   sendingAuthRequest,
   setAuthState,  
   authRequestError,
+  saveMsAuthAccessToken,
+  saveMsSignedInUser,
+  clearAuthStates,
  } from './actions';
 
 import { changeForm } from '../LoginPage/actions';
@@ -22,6 +27,7 @@ import {
   LOGIN_AUTH_REQUEST,
   REGISTER_AUTH_REQUEST,
   LOGOUT_AUTH_REQUEST,
+  LOGIN_MS_AUTH_REQUEST,
 } from './constants';
 
 /**
@@ -147,8 +153,44 @@ export function* logoutFlow () {
   while (true) {
     yield take(LOGOUT_AUTH_REQUEST);
     yield put(setAuthState(false));
+    yield put(clearAuthStates());
     yield call(logout);
     forwardTo('/login');
+  }
+}
+
+
+export function* logingUsingMicrosoftFlow () {
+  while (true) {
+    yield take(LOGIN_MS_AUTH_REQUEST);
+
+    try {
+      const authAccessToken = yield call(startOAuth);
+      yield put(sendingAuthRequest(true));
+      yield put(saveMsAuthAccessToken(authAccessToken));
+
+      const signedInUser = yield call(getSignedInUser);
+      yield put(saveMsSignedInUser(signedInUser));
+
+      yield put(setAuthState(true)); // User is logged in (authorized)
+      forwardTo('/dashboard'); // Go to dashboard page
+
+    } catch (err) {
+      yield put(sendingAuthRequest(false));
+      yield put(authRequestError(error.message));
+    }
+  /*
+    call(authorize, {
+      username: 'DeekshithShetty',
+      password: 'Hydra@12345', 
+      isRegistering: false
+    });
+    
+    yield put(setAuthState(true)); // User is logged in (authorized)
+    yield put(changeForm({username: '', password: ''})); // Clear form
+    forwardTo('/dashboard'); // Go to dashboard page
+
+    */
   }
 }
 

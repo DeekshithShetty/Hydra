@@ -13,7 +13,7 @@ import Content from './Content';
 import Footer from './Footer';
 
 import { toggleSidebarDisplay, logout } from './actions';
-import { makeSelectCss } from './selectors';
+import { makeSelectCss, makeSelectSignedInUserName } from './selectors';
 
 const AppWrapper = styled.div`
 
@@ -60,7 +60,7 @@ class App extends React.PureComponent {
             { name: 'description', content: 'Project Hydra - React.js Boilerplate' },
           ]}
         />
-        <Sidebar />
+        <Sidebar signedInUsername={this.props.signedInUsername} />
         <Header onLogout={this.props.onLogout} 
           onToggleSidebarDisplay={this.props.onToggleSidebarDisplay} />
         <Content id="content">
@@ -96,6 +96,7 @@ export function mapDispatchToProps(dispatch, ownProps) {
 
 const mapStateToProps = createStructuredSelector({
   cssState: makeSelectCss(),
+  signedInUsername: makeSelectSignedInUserName(),
 });
 
 // Wrap the component to inject dispatch and state into it

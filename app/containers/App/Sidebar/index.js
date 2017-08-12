@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import styled from 'styled-components';
 
@@ -31,14 +31,12 @@ const Divider = styled.div`
     margin: 1em 0em 1em 0em;
 `;
 
-class Sidebar extends Component {
-    
-  render () {
+const Sidebar = ({ signedInUsername }) => {
 
     return (
       <SidebarWrapper id="sidebar">
         <AppLogo />
-        <ProfileView />
+        <ProfileView signedInUsername={signedInUsername} />
         <Divider />
         <NavigationList>
             <NavigationItem>
@@ -64,7 +62,10 @@ class Sidebar extends Component {
         <Divider />
       </SidebarWrapper>
     )
-  }
+}
+
+Sidebar.propTypes = {
+    signedInUsername: PropTypes.string.isRequired,
 }
 
 export default Sidebar;

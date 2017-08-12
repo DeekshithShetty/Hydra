@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import styled from 'styled-components';
 
@@ -23,15 +23,18 @@ const UserName = styled.div`
     color: #BBB;
 `;
 
-class ProfileView extends Component {
-  render () {
-    return (
-      <ProfileViewWrapper>
-        <CircularProfileImage src={ ProfilePic } />
-        <UserName>Red Skull</UserName>
-      </ProfileViewWrapper>
-    )
-  }
+const ProfileView = ({ signedInUsername }) => {
+
+  return (
+    <ProfileViewWrapper>
+      <CircularProfileImage src={ ProfilePic } />
+      <UserName>{signedInUsername}</UserName>
+    </ProfileViewWrapper>
+  )
+}
+
+ProfileView.propTypes = {
+  signedInUsername: PropTypes.string.isRequired,
 }
 
 export default ProfileView;

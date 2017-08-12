@@ -6,8 +6,15 @@ import {
   AUTH_REQUEST_ERROR,
   CURRENT_IS_AUTH,
   SAVE_AUTH_TOKEN,
+  SAVE_AUTH_USER,
   TOGGLE_SIDEBAR,
   CLEAR_AUTH_REQUEST_ERROR,
+
+  LOGIN_MS_AUTH_REQUEST,
+  SAVE_MS_AUTH_TOKEN,
+  SAVE_MS_AUTH_USER,
+
+  CLEAR_AUTH_STATE,
 } from './constants'
 
 /**
@@ -50,6 +57,11 @@ export function saveAuthIdToken (idToken) {
   return {type: SAVE_AUTH_TOKEN, idToken}
 }
 
+export function saveSignedInUser (user) {
+  console.dir(user);
+  return {type: SAVE_AUTH_USER, user}
+}
+
 export function toggleSidebarDisplay () {
   return {type: TOGGLE_SIDEBAR}
 }
@@ -74,4 +86,20 @@ export function authRequestError (error) {
  */
 export function clearAuthRequestError () {
   return {type: CLEAR_AUTH_REQUEST_ERROR}
+}
+
+export function loginUsingMsRequest () {
+  return {type: LOGIN_MS_AUTH_REQUEST}
+}
+
+export function saveMsAuthAccessToken (accessToken) {
+  return {type: SAVE_MS_AUTH_TOKEN, accessToken}
+}
+
+export function saveMsSignedInUser (user) {
+  return {type: SAVE_MS_AUTH_USER, user}
+}
+
+export function clearAuthStates () {
+  return {type: CLEAR_AUTH_STATE}
 }

@@ -44,7 +44,16 @@ const makeSelectAuthRequestError = () => createSelector(
 
 const makeSelectAuthIsLoggedIn = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('auth').get('loggedIn')
+  (globalState) => globalState.get('loggedIn')
+);
+
+const makeSelectSignedInUserName = () => createSelector(
+  selectGlobal,
+  (globalState) => {
+    let authUsername = globalState.get('auth').get('user').get('name');
+    let msAuthUsername = globalState.get('ms_auth').get('user').get('name');
+    return (msAuthUsername != '') ? msAuthUsername : authUsername;
+  }
 );
 
 export {
@@ -55,4 +64,5 @@ export {
   makeSelectCurrentlySendingAuthRequest,
   makeSelectAuthRequestError,
   makeSelectAuthIsLoggedIn,
+  makeSelectSignedInUserName,
 };

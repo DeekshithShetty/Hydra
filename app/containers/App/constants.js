@@ -14,10 +14,21 @@ export const DEFAULT_LOCALE = 'en';
 
 // Auth related constants
 export const CURRENT_IS_AUTH = 'hydra/App/CURRENT_IS_AUTH';
-export const SAVE_AUTH_TOKEN = 'hydra/App/SAVE_AUTH_TOKEN';
+
 export const SENDING_AUTH_REQUEST = 'hydra/App/SENDING_AUTH_REQUEST';
+
 export const LOGIN_AUTH_REQUEST = 'hydra/App/LOGIN_AUTH_REQUEST';
+export const SAVE_AUTH_TOKEN = 'hydra/App/SAVE_AUTH_TOKEN';
+export const SAVE_AUTH_USER = 'hydra/App/SAVE_AUTH_USER';
+
 export const REGISTER_AUTH_REQUEST = 'hydra/App/REGISTER_AUTH_REQUEST';
 export const LOGOUT_AUTH_REQUEST = 'hydra/App/LOGOUT_AUTH_REQUEST';
 export const AUTH_REQUEST_ERROR = 'hydra/App/AUTH_REQUEST_ERROR';
 export const CLEAR_AUTH_REQUEST_ERROR = 'hydra/App/CLEAR_AUTH_REQUEST_ERROR';
+
+// Microsoft Auth related constants
+export const LOGIN_MS_AUTH_REQUEST = 'hydra/App/LOGIN_MS_AUTH_REQUEST';
+export const SAVE_MS_AUTH_TOKEN = 'hydra/App/SAVE_MS_AUTH_TOKEN';
+export const SAVE_MS_AUTH_USER = 'hydra/App/SAVE_MS_AUTH_USER';
+
+export const CLEAR_AUTH_STATE = 'hydra/App/CLEAR_AUTH_STATE';

@@ -10,9 +10,10 @@ import H2 from '../../components/H2';
 import Logo from './logo.png';
 
 import LoginForm from './LoginForm';
+import MicrosoftLogin from './MicrosoftLogin';
 import messages from './messages';
 
-import { loginRequest } from '../App/actions';
+import { loginRequest, loginUsingMsRequest } from '../App/actions';
 import { changeForm } from './actions';
 import { makeSelectCurrentlySendingAuthRequest, makeSelectAuthRequestError } from '../App/selectors';
 import { makeSelectFormState } from './selectors';
@@ -54,6 +55,11 @@ export class LoginPage extends React.PureComponent {
             </H2>
           </Header>
           <LoginForm data={formState} onChangeUsername={this.props.onChangeUsername} onChangePassword={this.props.onChangePassword} onSubmit={this.props.onLogin} error={error} currentlySending={currentlySending} />
+          
+          <p>or</p>
+          
+          <MicrosoftLogin onClick={this.props.onMicrosoftLogin} />
+
           <p>Not registered? <a href="/register">Create an account</a></p>
         </FormWrapper>
       </LoginPageWrapper>
@@ -74,7 +80,8 @@ export function mapDispatchToProps(dispatch, ownProps) {
   return {
     onLogin: (username, password) => dispatch(loginRequest({username, password})),
     onChangeUsername: (newFormState) => dispatch(changeForm(newFormState)),
-    onChangePassword: (newFormState) => dispatch(changeForm(newFormState))
+    onChangePassword: (newFormState) => dispatch(changeForm(newFormState)),
+    onMicrosoftLogin: () => dispatch(loginUsingMsRequest()),
   };
 }
 

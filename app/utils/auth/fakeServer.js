@@ -1,9 +1,10 @@
 import {hashSync, genSaltSync, compareSync} from 'bcryptjs'
 import genSalt from './salt'
 
-let users
-let localStorage
-let salt = genSaltSync(10)
+let users;
+let localStorage;
+let salt = genSaltSync(10);
+let  sessionStorage = global.window.sessionStorage;
 
 // If we're testing, use a local storage polyfill
 if (global.process && process.env.NODE_ENV === 'test') {
@@ -91,8 +92,9 @@ let server = {
  */
   logout () {
     return new Promise(resolve => {
-      localStorage.removeItem('token')
-      resolve(true)
+      localStorage.removeItem('token');
+      sessionStorage.clear();
+      resolve(true);
     })
   },
  /**

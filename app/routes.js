@@ -26,7 +26,6 @@ export const createRoutes = (store) => {
 
         let loggedIn = store.getState()
             .get('global')
-            .get('auth')
             .get('loggedIn'); 
 
         store.dispatch(clearAuthRequestError())
