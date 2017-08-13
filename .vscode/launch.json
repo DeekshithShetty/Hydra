@@ -5,11 +5,14 @@
             "name": "Chrome",
             "type": "chrome",
             "request": "launch",
-            "url": "http://localhost:3000/login",
+            "url": "http://localhost:3000",
+            "trace": true,
+            "sourceMaps": true,
+            "smartStep": true,
             "webRoot": "${workspaceRoot}/app",
             "userDataDir": "${workspaceRoot}/.chrome",
             "sourceMapPathOverrides": {
-                "webpack:///src/*": "${webRoot}/*"
+                "webpack:///./app/*": "${webRoot}/*"
             }
         }
     ]

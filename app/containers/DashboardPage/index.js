@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import {Line as LineChart} from 'react-chartjs';
+import {Pie as PieChart} from 'react-chartjs';
 
 import PageWrapper from './PageWrapper';
 import ReposList from './ReposList';
@@ -37,32 +38,36 @@ class DashboardPage extends React.PureComponent {
       repos,
     };
 
+    const hexColorCodes = ["#FF5A5E", "#5AD3D1", "#FF9154", "#AED67A", "#FFC870"];
+
+    const myPieChartData = [];
+
     const deviceChartData = {
-        labels: [],
-        datasets: [
-            {
-                label: "Stargazers",
-                strokeColor: "#66BB6A",
-                pointColor: "rgba(102,187,106,0.5)",
-                pointStrokeColor: "#fff",
-                pointHoverRadius: 5,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                data: [],
-                spanGaps: false,
-            },
-              {
-                label: "Forks",
-                strokeColor: "#F44336",
-                pointColor: "rgba(244,67,54,0.5)",
-                pointStrokeColor: "#fff",
-                pointHoverRadius: 5,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                data: [],
-                spanGaps: false,
-            }
-        ]
+      labels: [],
+      datasets: [
+          {
+              label: "Stargazers",
+              strokeColor: "#66BB6A",
+              pointColor: "rgba(102,187,106,0.5)",
+              pointStrokeColor: "#fff",
+              pointHoverRadius: 5,
+              pointRadius: 1,
+              pointHitRadius: 10,
+              data: [],
+              spanGaps: false,
+          },
+          {
+            label: "Forks",
+            strokeColor: "#F44336",
+            pointColor: "rgba(244,67,54,0.5)",
+            pointStrokeColor: "#fff",
+            pointHoverRadius: 5,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [],
+            spanGaps: false,
+        }
+      ]
     };
 
     var reposArrayLength = (repos.length > 5) ? 5 : repos.length;
@@ -70,6 +75,11 @@ class DashboardPage extends React.PureComponent {
         deviceChartData.labels.push(repos[i].name);
         deviceChartData.datasets[0].data.push(repos[i].stargazers_count);
         deviceChartData.datasets[1].data.push(repos[i].forks);
+        myPieChartData.push({
+          value: repos[i].forks,
+          color: hexColorCodes[i],
+          label: repos[i].name
+        })
     }
 
     const chartOptions = {
@@ -78,6 +88,11 @@ class DashboardPage extends React.PureComponent {
         bezierCurve : false,
         datasetFill : false
     };
+
+    const devicesCountPieChartContent = reposListProps.loading ? 
+      <h3>Loading ...</h3>
+      :
+      <PieChart data={myPieChartData} options={chartOptions} redraw={true}/>;
 
     const devicesLineChartContent = reposListProps.loading ? 
       <h3>Loading ...</h3>
@@ -102,11 +117,20 @@ class DashboardPage extends React.PureComponent {
               <p>Repo Trends</p>
             </DashboardCardHeading>
             <DashboardCardContent>
-              {devicesLineChartContent}
+              {devicesCountPieChartContent}
             </DashboardCardContent>
           </DashboardCard>
 
           <DashboardCard>
+            <DashboardCardHeading>
+              <p>Repo Trends</p>
+            </DashboardCardHeading>
+            <DashboardCardContent>
+              {devicesLineChartContent}
+            </DashboardCardContent>
+          </DashboardCard>
+
+          <DashboardCard width="100%">
             <DashboardCardHeading>
               <p>Repo List</p>
             </DashboardCardHeading>
