@@ -27,7 +27,6 @@ const LoginButton = styled.div`
     user-select: none;
     cursor: pointer;
     outline: 0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
     &:hover {
         background: #0052A6;

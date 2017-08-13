@@ -68,8 +68,6 @@ const GoBackLink = styled.a`
   user-select: none;
   cursor: pointer;
   outline: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: bold;
   font-size: 16px;
   background: #41C2C2;
   color: #FFF;

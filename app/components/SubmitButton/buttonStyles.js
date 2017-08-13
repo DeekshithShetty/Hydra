@@ -11,7 +11,6 @@ const buttonStyles = css`
   user-select: none;
   cursor: pointer;
   outline: 0;
-  font-family: "Roboto", sans-serif;
   font-weight: bold;
   font-size: 16px;
   background: #41C2C2;

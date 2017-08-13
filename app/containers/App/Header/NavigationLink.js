@@ -4,9 +4,8 @@ import {Link} from 'react-router';
 const NavigationLink = styled(Link)`
     text-decoration: none;
     color: #444;
-    font-size:1.0em;
-    margin-left:0.5em;
-    margin-right:0.5em;
+    font-size: 1.0em;
+    margin: 0 0.5em;
 
     @media all and (max-width: 600px) {
         text-align: center; 

@@ -6,7 +6,10 @@ import HamburgerButton from './HamburgerButton';
 import NavigationList from './NavigationList';
 import StyledLink from './StyledLink';
 import NavigationLink from './NavigationLink';
+import LogoutIcon from './LogoutIcon';
 import A from './A';
+
+import logoutIconSrc from './logout.png';
 
 const HeaderWrapper = styled.header`
 
@@ -54,7 +57,7 @@ const Header = ({ onLogout, onToggleSidebarDisplay }) => (
         
         <NavigationList>
           <li>
-            <NavigationLink to='#' onClick={onLogout}>&#x2716;</NavigationLink>
+            <LogoutIcon src={logoutIconSrc} onClick={onLogout} />
           </li>
         </NavigationList>
     </HeaderWrapper>

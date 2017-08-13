@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const Input = styled.input`
-  font-family: "Roboto", sans-serif;
   outline: 0;
   background: #EFEFEF;
   width: 100%;
