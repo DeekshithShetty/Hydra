@@ -4,7 +4,7 @@
 // about the code splitting business
 
 import React from 'react'
-import { Route } from 'react-router';
+import { Route, Redirect } from 'react-router';
 
 import { getAsyncInjectors } from './utils/asyncInjectors';
 
@@ -46,7 +46,12 @@ export const createRoutes = (store) => {
     }
 
   return [
-      {
+    {
+        path: '/',
+        exact: true,
+        onEnter: checkAuth,
+        component: () => <Redirect to="login"/>
+    },{
         path: '/login',
         name: 'login',
         onEnter: checkAuth,
