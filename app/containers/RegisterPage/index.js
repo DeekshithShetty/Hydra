@@ -4,7 +4,6 @@ import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import FormWrapper from './FormWrapper';
 import Header from './Header';
 import H2 from '../../components/H2';
 
@@ -16,7 +15,7 @@ import { changeForm } from './actions';
 import { makeSelectCurrentlySendingAuthRequest, makeSelectAuthRequestError } from '../App/selectors';
 import { makeSelectFormState } from './selectors';
 
-const RegisterPageWrapper = styled.div`
+const PageWrapper = styled.div`
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -26,8 +25,41 @@ const RegisterPageWrapper = styled.div`
     -webkit-flex-flow: row wrap;
     flex-flow: row wrap;
 
-    min-height: 100vh;
-    background: #41C2C2;
+    height: 100vh;
+    background: #81E2E2;
+
+    @media all and (max-width: 800px) {
+      min-height: 100vh;
+      height: 100%;
+    }
+`;
+
+const FormWrapper = styled.div`
+  margin: auto;
+  z-index: 1;
+  max-width: 360px;
+  padding: 45px;
+  text-align: center;
+  background: #FFF;
+  border-radius: 5px;
+
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+
+  /* On mouse-over, add a deeper shadow */
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  @media all and (max-width: 800px) {
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    padding: 45px;
+    background: #81E2E2;
+  }
+
 `;
 
 class RegisterPage extends Component {
@@ -36,7 +68,7 @@ class RegisterPage extends Component {
     let { formState, currentlySending, error } = this.props;
 
     return (
-      <RegisterPageWrapper>
+      <PageWrapper>
         <FormWrapper>
           <Header>
             <H2>
@@ -45,7 +77,7 @@ class RegisterPage extends Component {
           </Header>
           <RegisterForm data={formState} onChangeUsername={this.props.onChangeUsername} onChangePassword={this.props.onChangePassword} onSubmit={this.props.onRegister} error={error} currentlySending={currentlySending} />
         </FormWrapper>
-      </RegisterPageWrapper>
+      </PageWrapper>
     )
   }
 }
@@ -54,9 +86,9 @@ RegisterPage.propTypes = {
   formState: React.PropTypes.object,
   currentlySending: React.PropTypes.bool,
   error: React.PropTypes.string,
-  history: React.PropTypes.object,
   onRegister: React.PropTypes.func,
-  dispatch: React.PropTypes.func
+  onChangeUsername: React.PropTypes.func,
+  onChangePassword: React.PropTypes.func,
 }
 
 export function mapDispatchToProps(dispatch, ownProps) {

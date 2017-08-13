@@ -51,7 +51,7 @@ injectGlobal`
   }
 
   body.js-open-sans-loaded {
-    font-family: 'Open Sans', Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
   }
 
   .activeSidebarLink {

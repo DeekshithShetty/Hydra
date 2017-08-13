@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import {browserHistory} from 'react-router';
 
-import FormWrapper from './FormWrapper';
 import Header from './Header';
 import H2 from '../../components/H2';
 import Logo from './logo.png';
@@ -18,26 +18,67 @@ import { changeForm } from './actions';
 import { makeSelectCurrentlySendingAuthRequest, makeSelectAuthRequestError } from '../App/selectors';
 import { makeSelectFormState } from './selectors';
 
-const LoginPageWrapper = styled.div`
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;  
-    
-    -webkit-flex-flow: row wrap;
-    flex-flow: row wrap;
+const PageWrapper = styled.div`
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;  
+  
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
 
+  height: 100vh;
+  background: #81E2E2;
+
+  @media all and (max-width: 800px) {
     min-height: 100vh;
-    background: #41C2C2;
+    height: 100%;
+  }
+`;
+
+const FormWrapper = styled.div`
+  margin: auto;
+  z-index: 1;
+  max-width: 360px;
+  padding: 30px;
+  text-align: center;
+  background: #FFF;
+  border-radius: 5px;
+
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+
+  /* On mouse-over, add a deeper shadow */
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  @media all and (max-width: 800px) {
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    background: #81E2E2;
+  }
 `;
 
 const CircularLogoImage = styled.img`
-    height: 120px;
-    width: 120px;
-    margin: 0 auto;
-    display: block;
-    border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 50%;
+`;
+
+const A = styled.a`
+  text-decoration: none;
+  color: #21A2A2;
+  transition: all 0.5s;
+
+  &:hover {
+    color: #118282;
+  }
 `;
 
 export class LoginPage extends React.PureComponent {
@@ -46,7 +87,7 @@ export class LoginPage extends React.PureComponent {
     const { formState, currentlySending, error } = this.props;
 
     return (
-      <LoginPageWrapper>
+      <PageWrapper>
         <FormWrapper>
           <Header>
             <CircularLogoImage src={ Logo } />
@@ -60,9 +101,9 @@ export class LoginPage extends React.PureComponent {
           
           <MicrosoftLogin onClick={this.props.onMicrosoftLogin} />
 
-          <p>Not registered? <a href="/register">Create an account</a></p>
+          <p>Not registered? <A onClick={this.props.onRegisterClick}  href="#">Create an account</A></p>
         </FormWrapper>
-      </LoginPageWrapper>
+      </PageWrapper>
     )
   }
 }
@@ -71,9 +112,11 @@ LoginPage.propTypes = {
   formState: React.PropTypes.object,
   currentlySending: React.PropTypes.bool,
   error: React.PropTypes.string,
-  history: React.PropTypes.object,
   onLogin: React.PropTypes.func,
-  dispatch: React.PropTypes.func
+  onChangeUsername: React.PropTypes.func,
+  onChangePassword: React.PropTypes.func,
+  onMicrosoftLogin: React.PropTypes.func,
+  onRegisterClick: React.PropTypes.func,
 }
 
 export function mapDispatchToProps(dispatch, ownProps) {
@@ -82,6 +125,10 @@ export function mapDispatchToProps(dispatch, ownProps) {
     onChangeUsername: (newFormState) => dispatch(changeForm(newFormState)),
     onChangePassword: (newFormState) => dispatch(changeForm(newFormState)),
     onMicrosoftLogin: () => dispatch(loginUsingMsRequest()),
+    onRegisterClick: (event) => {
+      event.preventDefault();
+      return browserHistory.push('/register');
+    },
   };
 }
 

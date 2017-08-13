@@ -11,6 +11,7 @@ import A from './A';
 const HeaderWrapper = styled.header`
 
     float:right;
+    height: 4em;
     width: 85%;
     list-style: none;
     margin: 0;

@@ -178,7 +178,6 @@ export function* loginUsingMicrosoft() {
     yield put(setAuthState(true)); // User is logged in (authorized)
     yield put(changeForm({username: '', password: ''})); // Clear form
     forwardTo('/dashboard'); // Go to dashboard page
-    console.dir("forwardTo('/dashboard')");
   } catch (error) {
     yield put(authRequestError(error.message));
   } finally {

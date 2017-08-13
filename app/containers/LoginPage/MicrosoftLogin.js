@@ -9,7 +9,7 @@ const LoginButton = styled.div`
     width: 100%;
     background: #0072C6;
     color: #EEE;
-    padding: 0.5em;
+    padding: 0.8em;
     transition: all 0.5s;
 
     display: -webkit-box;
@@ -22,7 +22,6 @@ const LoginButton = styled.div`
     flex-flow: row wrap;
     justify-content: center;
 
-    border-radius: 4px;
     -webkit-font-smoothing: antialiased;
     -webkit-touch-callout: none;
     user-select: none;

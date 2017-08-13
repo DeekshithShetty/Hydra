@@ -6,6 +6,7 @@ import StyledLink from './StyledLink';
 
 const AppLogoWrapper = styled.div`
     padding: 0.5em;
+    height: 4em;
     text-align:center;
     color: #EEE;
     background: #41C2C2;

@@ -74,10 +74,10 @@ class App extends React.PureComponent {
 
 App.propTypes = {
   cssState: React.PropTypes.object,
-  history: React.PropTypes.object,
-  location: React.PropTypes.object,
+  signedInUsername: React.PropTypes.string,
   children: React.PropTypes.object,
-  dispatch: React.PropTypes.func
+  onLogout: React.PropTypes.func,
+  onToggleSidebarDisplay: React.PropTypes.func,
 }
 
 export function mapDispatchToProps(dispatch, ownProps) {

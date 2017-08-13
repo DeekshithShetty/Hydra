@@ -3,7 +3,6 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import messages from './messages';
 
-import Form from './Form';
 import Label from '../../components/Label';
 import Input from './Input';
 import SubmitButton from '../../components/SubmitButton';
@@ -17,7 +16,7 @@ const LoginForm = ({ data, error, currentlySending, onChangeUsername, onChangePa
   const passwordPlaceholder = intl.formatMessage(messages.passwordText);
 
   return (
-    <Form onSubmit={ e => {
+    <form onSubmit={ e => {
             e.preventDefault();
             onSubmit(data.username, data.password);
           }
@@ -45,9 +44,8 @@ const LoginForm = ({ data, error, currentlySending, onChangeUsername, onChangePa
               <FormattedMessage {...messages.loginButtonText} />
             </SubmitButton>
               )}
-      </Form>
+      </form>
   );
-
 };
 
 LoginForm.propTypes = {

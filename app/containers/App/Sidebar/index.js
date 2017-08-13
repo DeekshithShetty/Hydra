@@ -14,12 +14,10 @@ const SidebarWrapper = styled.aside`
     float:left;
     width: 15%;
     background: #152032;
-    min-height: 85vh;
-    margin-bottom: -5000px;
-    padding-bottom: 5000px;
+    height: 100vh;
+    overflow: auto;
 
     @media all and (max-width: 800px) {
-        min-height: auto;
         height: auto;
         margin-bottom: 0;
         padding-bottom: 0;
