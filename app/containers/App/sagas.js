@@ -7,14 +7,17 @@
 import {hashSync} from 'bcryptjs';
 import genSalt from '../../utils/auth/salt';
 import {browserHistory} from 'react-router';
-import {take, call, put, fork, race} from 'redux-saga/effects';
+import {take, call, put, race, cancel, takeLatest} from 'redux-saga/effects';
 import auth from '../../utils/auth';
 
 import {startOAuth, getSignedInUser} from 'utils/microsoft-auth';
 
+import { LOCATION_CHANGE } from 'react-router-redux';
+
 import { 
   sendingAuthRequest,
-  setAuthState,  
+  setAuthState,
+  saveSignedInUser,  
   authRequestError,
   saveMsAuthAccessToken,
   saveMsSignedInUser,
@@ -90,8 +93,10 @@ export function* loginFlow () {
     if (winner.auth) {
       // ...we send Redux appropiate actions
       yield put(setAuthState(true)); // User is logged in (authorized)
-      yield put(changeForm({username: '', password: ''})); // Clear form
+      yield put(saveSignedInUser({name: username}));
       forwardTo('/dashboard'); // Go to dashboard page
+      yield put(changeForm({username: '', password: ''})); // Clear form
+
       // If `logout` won...
     } else if (winner.logout) {
       // ...we send Redux appropiate action
@@ -119,8 +124,10 @@ export function* registerFlow () {
     // If we could register a user, we send the appropiate actions
     if (wasSuccessful) {
       yield put(setAuthState(true)); // User is logged in (authorized) after being registered
-      yield put(changeForm({username: '', password: ''})); // Clear form
+      yield put(saveSignedInUser({name: username}));
       forwardTo('/dashboard'); // Go to dashboard page
+      yield put(changeForm({username: '', password: ''})); // Clear form
+      
     }
   }
 }
@@ -159,39 +166,29 @@ export function* logoutFlow () {
   }
 }
 
+export function* loginUsingMicrosoft() {
+  try {
+    yield call(startOAuth);
+    yield put(sendingAuthRequest(true));
+    //let authAccessToken = yield call(getMsAccessToken);
+    //yield put(saveMsAuthAccessToken(authAccessToken));
 
-export function* logingUsingMicrosoftFlow () {
-  while (true) {
-    yield take(LOGIN_MS_AUTH_REQUEST);
-
-    try {
-      const authAccessToken = yield call(startOAuth);
-      yield put(sendingAuthRequest(true));
-      yield put(saveMsAuthAccessToken(authAccessToken));
-
-      const signedInUser = yield call(getSignedInUser);
-      yield put(saveMsSignedInUser(signedInUser));
-
-      yield put(setAuthState(true)); // User is logged in (authorized)
-      forwardTo('/dashboard'); // Go to dashboard page
-
-    } catch (err) {
-      yield put(sendingAuthRequest(false));
-      yield put(authRequestError(error.message));
-    }
-  /*
-    call(authorize, {
-      username: 'DeekshithShetty',
-      password: 'Hydra@12345', 
-      isRegistering: false
-    });
-    
+    let signedInUser = yield call(getSignedInUser);
+    yield put(saveMsSignedInUser(signedInUser));
     yield put(setAuthState(true)); // User is logged in (authorized)
     yield put(changeForm({username: '', password: ''})); // Clear form
     forwardTo('/dashboard'); // Go to dashboard page
-
-    */
+    console.dir("forwardTo('/dashboard')");
+  } catch (error) {
+    yield put(authRequestError(error.message));
+  } finally {
+    yield put(sendingAuthRequest(false));
   }
+}
+
+
+export function* loginUsingMicrosoftFlow () {
+  const watcher = yield takeLatest(LOGIN_MS_AUTH_REQUEST, loginUsingMicrosoft);
 }
 
 // Little helper function to abstract going to different pages

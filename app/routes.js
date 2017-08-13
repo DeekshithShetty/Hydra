@@ -24,22 +24,22 @@ export const createRoutes = (store) => {
 
   function checkAuth(nextState, replaceState) {
 
-        let loggedIn = store.getState()
+        let isLoggedIn = store.getState()
             .get('global')
-            .get('loggedIn'); 
+            .get('isLoggedIn'); 
 
         store.dispatch(clearAuthRequestError())
         
         if (nextState.location.pathname == '/login') {
-            if (loggedIn) {
+            if (isLoggedIn) {
                 replaceState('/dashboard');
             }
         } else if (nextState.location.pathname == '/register') {
-            if (loggedIn) {
+            if (isLoggedIn) {
                 replaceState('/dashboard');
             }
         } else {
-            if (!loggedIn) {
+            if (!isLoggedIn) {
                 replaceState('/login');
             }
         }

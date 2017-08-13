@@ -58,7 +58,6 @@ export function saveAuthIdToken (idToken) {
 }
 
 export function saveSignedInUser (user) {
-  console.dir(user);
   return {type: SAVE_AUTH_USER, user}
 }
 

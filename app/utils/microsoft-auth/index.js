@@ -2,12 +2,19 @@ import Msal from "exports-loader?Msal!../../../node_modules/msal/out/msal.js";
 
 import config from './config';
 
-const userAgentApplication = new Msal.UserAgentApplication(
-    config.clientId, 
-    null, 
-     // this callback is called after loginRedirect OR acquireTokenRedirect 
-     // (not used for loginPopup/aquireTokenPopup)
-    function (errorDes, token, error, tokenType) { });
+let userAgentApplication;
+
+(function init(){
+    if(userAgentApplication === undefined){
+        userAgentApplication = new Msal.UserAgentApplication(
+            config.clientId, 
+            null, 
+             // this callback is called after loginRedirect OR acquireTokenRedirect 
+             // (not used for loginPopup/aquireTokenPopup)
+            function (errorDes, token, error, tokenType) { 
+            });
+    }
+})();
 
 function throwError(response) {
     const error = new Error("Error while authenicating");
@@ -15,16 +22,29 @@ function throwError(response) {
     throw error;
 }
 
-function getAuthToken(){
+export function startOAuth(){
+    return userAgentApplication.loginPopup(["user.read"]).then( function(idToken) {
+        // signin successful
+        return;
+    }, function (error) {
+        // handle error
+        console.dir("In startOAuth error");
+        throwError(error);
+    });
+}
+
+export function getMsAccessToken(){
     // get an access token
     return userAgentApplication.acquireTokenSilent(["user.read"]).then(function (accessToken) {
         console.log("ATS promise resolved");
+        sessionStorage['msal.accesstoken'] = accessToken;
         return accessToken;
     }, function (error) {
         // interaction required 
         if(error.indexOf("interaction_required") != -1){
             userAgentApplication.acquireTokenPopup(["user.read"]).then(function (accessToken) {
                 // success
+                sessionStorage['msal.accesstoken'] = accessToken;
                 return accessToken;
         }, function (error) {
                 // error
@@ -34,23 +54,10 @@ function getAuthToken(){
     });
 }
 
-export function startOAuth(){
-    return userAgentApplication.loginPopup(["user.read"]).then( function(idToken) {
-        // signin successful
-        return getAuthToken().then(function(accessToken){
-            sessionStorage['msal.accesstoken'] = accessToken;
-            return accessToken;
-        });
-    }, function (error) {
-        // handle error
-        throwError(error);
-    });
-}
-
 export function getSignedInUser(){
-    const signedInUser = userAgentApplication.getUser();
+    let signedInUser = userAgentApplication.getUser();
     sessionStorage['msal.signedinuser'] = JSON.stringify(signedInUser);
-    return userAgentApplication.getUser();
+    return signedInUser;
 }
 
 /*

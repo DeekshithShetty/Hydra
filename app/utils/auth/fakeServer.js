@@ -2,17 +2,10 @@ import {hashSync, genSaltSync, compareSync} from 'bcryptjs'
 import genSalt from './salt'
 
 let users;
-let localStorage;
 let salt = genSaltSync(10);
-let  sessionStorage = global.window.sessionStorage;
 
-// If we're testing, use a local storage polyfill
-if (global.process && process.env.NODE_ENV === 'test') {
-  localStorage = require('localStorage')
-} else {
-  // If not, use the browser one
-  localStorage = global.window.localStorage
-}
+let localStorage = global.window.localStorage;
+let sessionStorage = global.window.sessionStorage;
 
 let server = {
   /**
@@ -21,12 +14,12 @@ let server = {
   init () {
     if (localStorage.users === undefined || !localStorage.encrypted) {
       // Set default user
-      let juan = 'juan'
-      let juanSalt = genSalt(juan)
-      let juanPass = hashSync('password', juanSalt)
+      let defaultUser = 'DeekshithShetty'
+      let defaultUserSalt = genSalt(defaultUser)
+      let defaultUserPass = hashSync('Hydra@12345', defaultUserSalt)
 
       users = {
-        [juan]: hashSync(juanPass, salt)
+        [defaultUser]: hashSync(defaultUserPass, salt)
       }
 
       localStorage.users = JSON.stringify(users)
@@ -92,7 +85,6 @@ let server = {
  */
   logout () {
     return new Promise(resolve => {
-      localStorage.removeItem('token');
       sessionStorage.clear();
       resolve(true);
     })

@@ -4,7 +4,7 @@ import {
   loginFlow, 
   registerFlow, 
   logoutFlow,
-  logingUsingMicrosoftFlow
+  loginUsingMicrosoftFlow
 } from 'containers/App/sagas';
 
 // The root saga is what we actually send to Redux's middleware. In here we fork
@@ -15,5 +15,5 @@ export default function * root () {
   yield fork(loginFlow)
   yield fork(logoutFlow)
   yield fork(registerFlow)
-  yield fork(logingUsingMicrosoftFlow)
+  yield fork(loginUsingMicrosoftFlow)
 }

@@ -1,24 +1,17 @@
 import {getAccessToken} from './microsoft-auth';
 
-let localStorage = global.window.localStorage;
 let  sessionStorage = global.window.sessionStorage;
 
 let authHelper = {
     isLoggedIn () {
-        return !!localStorage.token || !!sessionStorage['msal.accesstoken'];
+        return !!sessionStorage['auth.idtoken'] || !!sessionStorage['msal.idtoken'];
     },
-    getIdToken(){
+    getAuthIdToken(){
         return localStorage.token ? localStorage.token : false;
     },
-    getMsAccessToken(){
-        if(sessionStorage['msal.accesstoken']){
-            return sessionStorage['msal.accesstoken'];
-            /*
-            return getAuthToken().then(function(accessToken){
-                console.log("in getAuthToken");
-                return accessToken;
-            });
-            */
+    getMsIdToken(){
+        if(sessionStorage['msal.idtoken']){
+            return sessionStorage['msal.idtoken'];
         }
         return false;
     },

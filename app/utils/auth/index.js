@@ -1,14 +1,6 @@
 import request from './fakeRequest'
 
-let localStorage
-
-// If we're testing, use a local storage polyfill
-if (global.process && process.env.NODE_ENV === 'test') {
-  localStorage = require('localStorage')
-} else {
-  // If not, use the browser one
-  localStorage = global.window.localStorage
-}
+let  sessionStorage = global.window.sessionStorage;
 
 let auth = {
   /**
@@ -23,7 +15,7 @@ let auth = {
     return request.post('/login', {username, password})
       .then(response => {
         // Save token to local storage
-        localStorage.token = response.token
+        sessionStorage['auth.idtoken'] = response.token;
         return Promise.resolve(true)
       })
   },
@@ -37,7 +29,7 @@ let auth = {
   * Checks if a user is logged in
   */
   loggedIn () {
-    return !!localStorage.token
+    return !!sessionStorage['auth.idtoken'];
   },
   /**
   * Registers a user and then logs them in
@@ -53,4 +45,4 @@ let auth = {
   onChange () {}
 }
 
-export default auth
+export default auth;

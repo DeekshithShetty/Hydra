@@ -29,17 +29,17 @@ import {
 
 // The initial state of the App
 const initialState = fromJS({
-  loggedIn: authHelper.isLoggedIn(),
+  isLoggedIn: authHelper.isLoggedIn(),
   auth:{
     currentlySending: false,
     error: '',
-    idToken: authHelper.getIdToken(),
+    idToken: authHelper.getAuthIdToken(),
     user: {
       name: 'Red Skull',
     }
   },
   ms_auth: {
-    accessToken: authHelper.getMsAccessToken(),
+    idToken: authHelper.getMsIdToken(),
     user: {
       displayableId: authHelper.getMsSignedInUser().displayableId,
       identityProvider: authHelper.getMsSignedInUser().identityProvider,
@@ -55,7 +55,7 @@ const initialState = fromJS({
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case CURRENT_IS_AUTH:
-      return state.set('loggedIn', action.newAuthState);
+      return state.set('isLoggedIn', action.newAuthState);
 
     case SAVE_AUTH_TOKEN:
       return state.setIn(['auth', 'idToken'], action.idToken);
