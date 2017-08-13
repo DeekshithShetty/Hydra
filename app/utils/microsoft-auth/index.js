@@ -4,18 +4,6 @@ import config from './config';
 
 let userAgentApplication;
 
-(function init(){
-    if(userAgentApplication === undefined){
-        userAgentApplication = new Msal.UserAgentApplication(
-            config.clientId, 
-            null, 
-             // this callback is called after loginRedirect OR acquireTokenRedirect 
-             // (not used for loginPopup/aquireTokenPopup)
-            function (errorDes, token, error, tokenType) { 
-            });
-    }
-})();
-
 function throwError(response) {
     const error = new Error("Error while authenicating");
     error.response = response;
@@ -23,6 +11,14 @@ function throwError(response) {
 }
 
 export function startOAuth(){
+    userAgentApplication = new Msal.UserAgentApplication(
+        config.clientId, 
+        null, 
+         // this callback is called after loginRedirect OR acquireTokenRedirect 
+         // (not used for loginPopup/aquireTokenPopup)
+        function (errorDes, token, error, tokenType) { 
+        });
+
     return userAgentApplication.loginPopup(["user.read"]).then( function(idToken) {
         // signin successful
         return;
